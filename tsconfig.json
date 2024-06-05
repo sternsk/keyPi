@@ -1,16 +1,17 @@
 {
   "compilerOptions": {
     "target": "ES6",
-    "module": "ESNext",
+    "module": "commonjs",
+    "moduleResolution": "node",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "types": ["tone"],
+    "types": ["node"],
     "baseUrl": "./",
-    "paths": {
-      "*": ["types/*"]
-
-    }
-  }
+    "typeRoots": ["./node_modules/@types"],
+    
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
 }

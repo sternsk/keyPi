@@ -549,8 +549,8 @@
   var init_add_active_input_connection_to_audio_node = __esm({
     "node_modules/standardized-audio-context/build/es2019/factories/add-active-input-connection-to-audio-node.js"() {
       createAddActiveInputConnectionToAudioNode = (insertElementInSet2) => {
-        return (activeInputs, source, [output, input, eventListener], ignoreDuplicates) => {
-          insertElementInSet2(activeInputs[input], [source, output, eventListener], (activeInputConnection) => activeInputConnection[0] === source && activeInputConnection[1] === output, ignoreDuplicates);
+        return (activeInputs, source, [output2, input, eventListener], ignoreDuplicates) => {
+          insertElementInSet2(activeInputs[input], [source, output2, eventListener], (activeInputConnection) => activeInputConnection[0] === source && activeInputConnection[1] === output2, ignoreDuplicates);
         };
       };
     }
@@ -806,9 +806,9 @@
     "node_modules/standardized-audio-context/build/es2019/helpers/delete-passive-input-connection-to-audio-node.js"() {
       init_get_value_for_key();
       init_pick_element_from_set();
-      deletePassiveInputConnectionToAudioNode = (passiveInputs, source, output, input) => {
+      deletePassiveInputConnectionToAudioNode = (passiveInputs, source, output2, input) => {
         const passiveInputConnections = getValueForKey(passiveInputs, source);
-        const matchingConnection = pickElementFromSet(passiveInputConnections, (passiveInputConnection) => passiveInputConnection[0] === output && passiveInputConnection[1] === input);
+        const matchingConnection = pickElementFromSet(passiveInputConnections, (passiveInputConnection) => passiveInputConnection[0] === output2 && passiveInputConnection[1] === input);
         if (passiveInputConnections.size === 0) {
           passiveInputs.delete(source);
         }
@@ -894,7 +894,7 @@
       init_set_internal_state_to_passive_when_necessary();
       createAddConnectionToAudioNode = (addActiveInputConnectionToAudioNode2, addPassiveInputConnectionToAudioNode2, connectNativeAudioNodeToNativeAudioNode2, deleteActiveInputConnectionToAudioNode2, disconnectNativeAudioNodeFromNativeAudioNode2, getAudioNodeConnections2, getAudioNodeTailTime2, getEventListenersOfAudioNode2, getNativeAudioNode2, insertElementInSet2, isActiveAudioNode2, isPartOfACycle2, isPassiveAudioNode2) => {
         const tailTimeTimeoutIds = /* @__PURE__ */ new WeakMap();
-        return (source, destination, output, input, isOffline) => {
+        return (source, destination, output2, input, isOffline) => {
           const { activeInputs, passiveInputs } = getAudioNodeConnections2(destination);
           const { outputs } = getAudioNodeConnections2(source);
           const eventListeners = getEventListenersOfAudioNode2(source);
@@ -902,19 +902,19 @@
             const nativeDestinationAudioNode = getNativeAudioNode2(destination);
             const nativeSourceAudioNode = getNativeAudioNode2(source);
             if (isActive) {
-              const partialConnection = deletePassiveInputConnectionToAudioNode(passiveInputs, source, output, input);
+              const partialConnection = deletePassiveInputConnectionToAudioNode(passiveInputs, source, output2, input);
               addActiveInputConnectionToAudioNode2(activeInputs, source, partialConnection, false);
               if (!isOffline && !isPartOfACycle2(source)) {
-                connectNativeAudioNodeToNativeAudioNode2(nativeSourceAudioNode, nativeDestinationAudioNode, output, input);
+                connectNativeAudioNodeToNativeAudioNode2(nativeSourceAudioNode, nativeDestinationAudioNode, output2, input);
               }
               if (isPassiveAudioNode2(destination)) {
                 setInternalStateToActive(destination);
               }
             } else {
-              const partialConnection = deleteActiveInputConnectionToAudioNode2(activeInputs, source, output, input);
+              const partialConnection = deleteActiveInputConnectionToAudioNode2(activeInputs, source, output2, input);
               addPassiveInputConnectionToAudioNode2(passiveInputs, input, partialConnection, false);
               if (!isOffline && !isPartOfACycle2(source)) {
-                disconnectNativeAudioNodeFromNativeAudioNode2(nativeSourceAudioNode, nativeDestinationAudioNode, output, input);
+                disconnectNativeAudioNodeFromNativeAudioNode2(nativeSourceAudioNode, nativeDestinationAudioNode, output2, input);
               }
               const tailTime = getAudioNodeTailTime2(destination);
               if (tailTime === 0) {
@@ -934,12 +934,12 @@
               }
             }
           };
-          if (insertElementInSet2(outputs, [destination, output, input], (outputConnection) => outputConnection[0] === destination && outputConnection[1] === output && outputConnection[2] === input, true)) {
+          if (insertElementInSet2(outputs, [destination, output2, input], (outputConnection) => outputConnection[0] === destination && outputConnection[1] === output2 && outputConnection[2] === input, true)) {
             eventListeners.add(eventListener);
             if (isActiveAudioNode2(source)) {
-              addActiveInputConnectionToAudioNode2(activeInputs, source, [output, input, eventListener], true);
+              addActiveInputConnectionToAudioNode2(activeInputs, source, [output2, input, eventListener], true);
             } else {
-              addPassiveInputConnectionToAudioNode2(passiveInputs, input, [source, output, eventListener], true);
+              addPassiveInputConnectionToAudioNode2(passiveInputs, input, [source, output2, eventListener], true);
             }
             return true;
           }
@@ -954,12 +954,12 @@
   var init_add_passive_input_connection_to_audio_node = __esm({
     "node_modules/standardized-audio-context/build/es2019/factories/add-passive-input-connection-to-audio-node.js"() {
       createAddPassiveInputConnectionToAudioNode = (insertElementInSet2) => {
-        return (passiveInputs, input, [source, output, eventListener], ignoreDuplicates) => {
+        return (passiveInputs, input, [source, output2, eventListener], ignoreDuplicates) => {
           const passiveInputConnections = passiveInputs.get(source);
           if (passiveInputConnections === void 0) {
-            passiveInputs.set(source, /* @__PURE__ */ new Set([[output, input, eventListener]]));
+            passiveInputs.set(source, /* @__PURE__ */ new Set([[output2, input, eventListener]]));
           } else {
-            insertElementInSet2(passiveInputConnections, [output, input, eventListener], (passiveInputConnection) => passiveInputConnection[0] === output && passiveInputConnection[1] === input, ignoreDuplicates);
+            insertElementInSet2(passiveInputConnections, [output2, input, eventListener], (passiveInputConnection) => passiveInputConnection[0] === output2 && passiveInputConnection[1] === input, ignoreDuplicates);
           }
         };
       };
@@ -2018,8 +2018,8 @@
   var init_add_active_input_connection_to_audio_param = __esm({
     "node_modules/standardized-audio-context/build/es2019/helpers/add-active-input-connection-to-audio-param.js"() {
       init_insert_element_in_set();
-      addActiveInputConnectionToAudioParam = (activeInputs, source, [output, eventListener], ignoreDuplicates) => {
-        insertElementInSet(activeInputs, [source, output, eventListener], (activeInputConnection) => activeInputConnection[0] === source && activeInputConnection[1] === output, ignoreDuplicates);
+      addActiveInputConnectionToAudioParam = (activeInputs, source, [output2, eventListener], ignoreDuplicates) => {
+        insertElementInSet(activeInputs, [source, output2, eventListener], (activeInputConnection) => activeInputConnection[0] === source && activeInputConnection[1] === output2, ignoreDuplicates);
       };
     }
   });
@@ -2029,12 +2029,12 @@
   var init_add_passive_input_connection_to_audio_param = __esm({
     "node_modules/standardized-audio-context/build/es2019/helpers/add-passive-input-connection-to-audio-param.js"() {
       init_insert_element_in_set();
-      addPassiveInputConnectionToAudioParam = (passiveInputs, [source, output, eventListener], ignoreDuplicates) => {
+      addPassiveInputConnectionToAudioParam = (passiveInputs, [source, output2, eventListener], ignoreDuplicates) => {
         const passiveInputConnections = passiveInputs.get(source);
         if (passiveInputConnections === void 0) {
-          passiveInputs.set(source, /* @__PURE__ */ new Set([[output, eventListener]]));
+          passiveInputs.set(source, /* @__PURE__ */ new Set([[output2, eventListener]]));
         } else {
-          insertElementInSet(passiveInputConnections, [output, eventListener], (passiveInputConnection) => passiveInputConnection[0] === output, ignoreDuplicates);
+          insertElementInSet(passiveInputConnections, [output2, eventListener], (passiveInputConnection) => passiveInputConnection[0] === output2, ignoreDuplicates);
         }
       };
     }
@@ -2055,14 +2055,14 @@
   var init_connect_native_audio_node_to_native_audio_node = __esm({
     "node_modules/standardized-audio-context/build/es2019/helpers/connect-native-audio-node-to-native-audio-node.js"() {
       init_native_audio_node_faker();
-      connectNativeAudioNodeToNativeAudioNode = (nativeSourceAudioNode, nativeDestinationAudioNode, output, input) => {
+      connectNativeAudioNodeToNativeAudioNode = (nativeSourceAudioNode, nativeDestinationAudioNode, output2, input) => {
         if (isNativeAudioNodeFaker(nativeDestinationAudioNode)) {
           const fakeNativeDestinationAudioNode = nativeDestinationAudioNode.inputs[input];
-          nativeSourceAudioNode.connect(fakeNativeDestinationAudioNode, output, 0);
-          return [fakeNativeDestinationAudioNode, output, 0];
+          nativeSourceAudioNode.connect(fakeNativeDestinationAudioNode, output2, 0);
+          return [fakeNativeDestinationAudioNode, output2, 0];
         }
-        nativeSourceAudioNode.connect(nativeDestinationAudioNode, output, input);
-        return [nativeDestinationAudioNode, output, input];
+        nativeSourceAudioNode.connect(nativeDestinationAudioNode, output2, input);
+        return [nativeDestinationAudioNode, output2, input];
       };
     }
   });
@@ -2071,9 +2071,9 @@
   var deleteActiveInputConnection;
   var init_delete_active_input_connection = __esm({
     "node_modules/standardized-audio-context/build/es2019/helpers/delete-active-input-connection.js"() {
-      deleteActiveInputConnection = (activeInputConnections, source, output) => {
+      deleteActiveInputConnection = (activeInputConnections, source, output2) => {
         for (const activeInputConnection of activeInputConnections) {
-          if (activeInputConnection[0] === source && activeInputConnection[1] === output) {
+          if (activeInputConnection[0] === source && activeInputConnection[1] === output2) {
             activeInputConnections.delete(activeInputConnection);
             return activeInputConnection;
           }
@@ -2088,8 +2088,8 @@
   var init_delete_active_input_connection_to_audio_param = __esm({
     "node_modules/standardized-audio-context/build/es2019/helpers/delete-active-input-connection-to-audio-param.js"() {
       init_pick_element_from_set();
-      deleteActiveInputConnectionToAudioParam = (activeInputs, source, output) => {
-        return pickElementFromSet(activeInputs, (activeInputConnection) => activeInputConnection[0] === source && activeInputConnection[1] === output);
+      deleteActiveInputConnectionToAudioParam = (activeInputs, source, output2) => {
+        return pickElementFromSet(activeInputs, (activeInputConnection) => activeInputConnection[0] === source && activeInputConnection[1] === output2);
       };
     }
   });
@@ -2114,9 +2114,9 @@
     "node_modules/standardized-audio-context/build/es2019/helpers/delete-passive-input-connection-to-audio-param.js"() {
       init_get_value_for_key();
       init_pick_element_from_set();
-      deletePassiveInputConnectionToAudioParam = (passiveInputs, source, output) => {
+      deletePassiveInputConnectionToAudioParam = (passiveInputs, source, output2) => {
         const passiveInputConnections = getValueForKey(passiveInputs, source);
-        const matchingConnection = pickElementFromSet(passiveInputConnections, (passiveInputConnection) => passiveInputConnection[0] === output);
+        const matchingConnection = pickElementFromSet(passiveInputConnections, (passiveInputConnection) => passiveInputConnection[0] === output2);
         if (passiveInputConnections.size === 0) {
           passiveInputs.delete(source);
         }
@@ -2130,11 +2130,11 @@
   var init_disconnect_native_audio_node_from_native_audio_node = __esm({
     "node_modules/standardized-audio-context/build/es2019/helpers/disconnect-native-audio-node-from-native-audio-node.js"() {
       init_native_audio_node_faker();
-      disconnectNativeAudioNodeFromNativeAudioNode = (nativeSourceAudioNode, nativeDestinationAudioNode, output, input) => {
+      disconnectNativeAudioNodeFromNativeAudioNode = (nativeSourceAudioNode, nativeDestinationAudioNode, output2, input) => {
         if (isNativeAudioNodeFaker(nativeDestinationAudioNode)) {
-          nativeSourceAudioNode.disconnect(nativeDestinationAudioNode.inputs[input], output, 0);
+          nativeSourceAudioNode.disconnect(nativeDestinationAudioNode.inputs[input], output2, 0);
         } else {
-          nativeSourceAudioNode.disconnect(nativeDestinationAudioNode, output, input);
+          nativeSourceAudioNode.disconnect(nativeDestinationAudioNode, output2, input);
         }
       };
     }
@@ -2261,21 +2261,21 @@
       wrapAudioNodeDisconnectMethod = (nativeAudioNode) => {
         const connections = /* @__PURE__ */ new Map();
         nativeAudioNode.connect = /* @__PURE__ */ ((connect2) => {
-          return (destination, output = 0, input = 0) => {
-            const returnValue = isNativeAudioNode(destination) ? connect2(destination, output, input) : connect2(destination, output);
+          return (destination, output2 = 0, input = 0) => {
+            const returnValue = isNativeAudioNode(destination) ? connect2(destination, output2, input) : connect2(destination, output2);
             const connectionsToDestination = connections.get(destination);
             if (connectionsToDestination === void 0) {
-              connections.set(destination, [{ input, output }]);
+              connections.set(destination, [{ input, output: output2 }]);
             } else {
-              if (connectionsToDestination.every((connection) => connection.input !== input || connection.output !== output)) {
-                connectionsToDestination.push({ input, output });
+              if (connectionsToDestination.every((connection) => connection.input !== input || connection.output !== output2)) {
+                connectionsToDestination.push({ input, output: output2 });
               }
             }
             return returnValue;
           };
         })(nativeAudioNode.connect.bind(nativeAudioNode));
         nativeAudioNode.disconnect = /* @__PURE__ */ ((disconnect2) => {
-          return (destinationOrOutput, output, input) => {
+          return (destinationOrOutput, output2, input) => {
             disconnect2.apply(nativeAudioNode);
             if (destinationOrOutput === void 0) {
               connections.clear();
@@ -2289,12 +2289,12 @@
                 }
               }
             } else if (connections.has(destinationOrOutput)) {
-              if (output === void 0) {
+              if (output2 === void 0) {
                 connections.delete(destinationOrOutput);
               } else {
                 const connectionsToDestination = connections.get(destinationOrOutput);
                 if (connectionsToDestination !== void 0) {
-                  const filteredConnections = connectionsToDestination.filter((connection) => connection.output !== output && (connection.input !== input || input === void 0));
+                  const filteredConnections = connectionsToDestination.filter((connection) => connection.output !== output2 && (connection.input !== input || input === void 0));
                   if (filteredConnections.length === 0) {
                     connections.delete(destinationOrOutput);
                   } else {
@@ -2348,7 +2348,7 @@
       init_test_audio_node_disconnect_method_support();
       init_visit_each_audio_node_once();
       init_wrap_audio_node_disconnect_method();
-      addConnectionToAudioParamOfAudioContext = (source, destination, output, isOffline) => {
+      addConnectionToAudioParamOfAudioContext = (source, destination, output2, isOffline) => {
         const { activeInputs, passiveInputs } = getAudioParamConnections(destination);
         const { outputs } = getAudioNodeConnections(source);
         const eventListeners = getEventListenersOfAudioNode(source);
@@ -2356,54 +2356,54 @@
           const nativeAudioNode = getNativeAudioNode(source);
           const nativeAudioParam = getNativeAudioParam(destination);
           if (isActive) {
-            const partialConnection = deletePassiveInputConnectionToAudioParam(passiveInputs, source, output);
+            const partialConnection = deletePassiveInputConnectionToAudioParam(passiveInputs, source, output2);
             addActiveInputConnectionToAudioParam(activeInputs, source, partialConnection, false);
             if (!isOffline && !isPartOfACycle(source)) {
-              nativeAudioNode.connect(nativeAudioParam, output);
+              nativeAudioNode.connect(nativeAudioParam, output2);
             }
           } else {
-            const partialConnection = deleteActiveInputConnectionToAudioParam(activeInputs, source, output);
+            const partialConnection = deleteActiveInputConnectionToAudioParam(activeInputs, source, output2);
             addPassiveInputConnectionToAudioParam(passiveInputs, partialConnection, false);
             if (!isOffline && !isPartOfACycle(source)) {
-              nativeAudioNode.disconnect(nativeAudioParam, output);
+              nativeAudioNode.disconnect(nativeAudioParam, output2);
             }
           }
         };
-        if (insertElementInSet(outputs, [destination, output], (outputConnection) => outputConnection[0] === destination && outputConnection[1] === output, true)) {
+        if (insertElementInSet(outputs, [destination, output2], (outputConnection) => outputConnection[0] === destination && outputConnection[1] === output2, true)) {
           eventListeners.add(eventListener);
           if (isActiveAudioNode(source)) {
-            addActiveInputConnectionToAudioParam(activeInputs, source, [output, eventListener], true);
+            addActiveInputConnectionToAudioParam(activeInputs, source, [output2, eventListener], true);
           } else {
-            addPassiveInputConnectionToAudioParam(passiveInputs, [source, output, eventListener], true);
+            addPassiveInputConnectionToAudioParam(passiveInputs, [source, output2, eventListener], true);
           }
           return true;
         }
         return false;
       };
-      deleteInputConnectionOfAudioNode = (source, destination, output, input) => {
+      deleteInputConnectionOfAudioNode = (source, destination, output2, input) => {
         const { activeInputs, passiveInputs } = getAudioNodeConnections(destination);
-        const activeInputConnection = deleteActiveInputConnection(activeInputs[input], source, output);
+        const activeInputConnection = deleteActiveInputConnection(activeInputs[input], source, output2);
         if (activeInputConnection === null) {
-          const passiveInputConnection = deletePassiveInputConnectionToAudioNode(passiveInputs, source, output, input);
+          const passiveInputConnection = deletePassiveInputConnectionToAudioNode(passiveInputs, source, output2, input);
           return [passiveInputConnection[2], false];
         }
         return [activeInputConnection[2], true];
       };
-      deleteInputConnectionOfAudioParam = (source, destination, output) => {
+      deleteInputConnectionOfAudioParam = (source, destination, output2) => {
         const { activeInputs, passiveInputs } = getAudioParamConnections(destination);
-        const activeInputConnection = deleteActiveInputConnection(activeInputs, source, output);
+        const activeInputConnection = deleteActiveInputConnection(activeInputs, source, output2);
         if (activeInputConnection === null) {
-          const passiveInputConnection = deletePassiveInputConnectionToAudioParam(passiveInputs, source, output);
+          const passiveInputConnection = deletePassiveInputConnectionToAudioParam(passiveInputs, source, output2);
           return [passiveInputConnection[1], false];
         }
         return [activeInputConnection[2], true];
       };
-      deleteInputsOfAudioNode = (source, isOffline, destination, output, input) => {
-        const [listener, isActive] = deleteInputConnectionOfAudioNode(source, destination, output, input);
+      deleteInputsOfAudioNode = (source, isOffline, destination, output2, input) => {
+        const [listener, isActive] = deleteInputConnectionOfAudioNode(source, destination, output2, input);
         if (listener !== null) {
           deleteEventListenerOfAudioNode(source, listener);
           if (isActive && !isOffline && !isPartOfACycle(source)) {
-            disconnectNativeAudioNodeFromNativeAudioNode(getNativeAudioNode(source), getNativeAudioNode(destination), output, input);
+            disconnectNativeAudioNodeFromNativeAudioNode(getNativeAudioNode(source), getNativeAudioNode(destination), output2, input);
           }
         }
         if (isActiveAudioNode(destination)) {
@@ -2411,12 +2411,12 @@
           setInternalStateToPassiveWhenNecessary(destination, activeInputs);
         }
       };
-      deleteInputsOfAudioParam = (source, isOffline, destination, output) => {
-        const [listener, isActive] = deleteInputConnectionOfAudioParam(source, destination, output);
+      deleteInputsOfAudioParam = (source, isOffline, destination, output2) => {
+        const [listener, isActive] = deleteInputConnectionOfAudioParam(source, destination, output2);
         if (listener !== null) {
           deleteEventListenerOfAudioNode(source, listener);
           if (isActive && !isOffline && !isPartOfACycle(source)) {
-            getNativeAudioNode(source).disconnect(getNativeAudioParam(destination), output);
+            getNativeAudioNode(source).disconnect(getNativeAudioParam(destination), output2);
           }
         }
       };
@@ -2434,11 +2434,11 @@
         audioNodeConnectionsOfSource.outputs.clear();
         return destinations;
       };
-      deleteConnectionAtOutput = (source, isOffline, output) => {
+      deleteConnectionAtOutput = (source, isOffline, output2) => {
         const audioNodeConnectionsOfSource = getAudioNodeConnections(source);
         const destinations = [];
         for (const outputConnection of audioNodeConnectionsOfSource.outputs) {
-          if (outputConnection[1] === output) {
+          if (outputConnection[1] === output2) {
             if (isAudioNodeOutputConnection(outputConnection)) {
               deleteInputsOfAudioNode(source, isOffline, ...outputConnection);
             } else {
@@ -2450,9 +2450,9 @@
         }
         return destinations;
       };
-      deleteConnectionToDestination = (source, isOffline, destination, output, input) => {
+      deleteConnectionToDestination = (source, isOffline, destination, output2, input) => {
         const audioNodeConnectionsOfSource = getAudioNodeConnections(source);
-        return Array.from(audioNodeConnectionsOfSource.outputs).filter((outputConnection) => outputConnection[0] === destination && (output === void 0 || outputConnection[1] === output) && (input === void 0 || outputConnection[2] === input)).map((outputConnection) => {
+        return Array.from(audioNodeConnectionsOfSource.outputs).filter((outputConnection) => outputConnection[0] === destination && (output2 === void 0 || outputConnection[1] === output2) && (input === void 0 || outputConnection[2] === input)).map((outputConnection) => {
           if (isAudioNodeOutputConnection(outputConnection)) {
             deleteInputsOfAudioNode(source, isOffline, ...outputConnection);
           } else {
@@ -2509,8 +2509,8 @@
             return this._nativeAudioNode.numberOfOutputs;
           }
           // tslint:disable-next-line:invalid-void
-          connect(destination, output = 0, input = 0) {
-            if (output < 0 || output >= this._nativeAudioNode.numberOfOutputs) {
+          connect(destination, output2 = 0, input = 0) {
+            if (output2 < 0 || output2 >= this._nativeAudioNode.numberOfOutputs) {
               throw createIndexSizeError2();
             }
             const nativeContext = getNativeContext2(this._context);
@@ -2521,7 +2521,7 @@
             if (isAudioNode(destination)) {
               const nativeDestinationAudioNode = getNativeAudioNode(destination);
               try {
-                const connection = connectNativeAudioNodeToNativeAudioNode(this._nativeAudioNode, nativeDestinationAudioNode, output, input);
+                const connection = connectNativeAudioNodeToNativeAudioNode(this._nativeAudioNode, nativeDestinationAudioNode, output2, input);
                 const isPassive = isPassiveAudioNode(this);
                 if (isOffline || isPassive) {
                   this._nativeAudioNode.disconnect(...connection);
@@ -2535,7 +2535,7 @@
                 }
                 throw err;
               }
-              const isNewConnectionToAudioNode = addConnectionToAudioNode(this, destination, output, input, isOffline);
+              const isNewConnectionToAudioNode = addConnectionToAudioNode(this, destination, output2, input, isOffline);
               if (isNewConnectionToAudioNode) {
                 const cycles = detectCycles([this], destination);
                 visitEachAudioNodeOnce(cycles, createIncrementCycleCounter(isOffline));
@@ -2547,9 +2547,9 @@
               throw createNotSupportedError2();
             }
             try {
-              this._nativeAudioNode.connect(nativeAudioParam, output);
+              this._nativeAudioNode.connect(nativeAudioParam, output2);
               if (isOffline || isPassiveAudioNode(this)) {
-                this._nativeAudioNode.disconnect(nativeAudioParam, output);
+                this._nativeAudioNode.disconnect(nativeAudioParam, output2);
               }
             } catch (err) {
               if (err.code === 12) {
@@ -2557,13 +2557,13 @@
               }
               throw err;
             }
-            const isNewConnectionToAudioParam = addConnectionToAudioParamOfAudioContext(this, destination, output, isOffline);
+            const isNewConnectionToAudioParam = addConnectionToAudioParamOfAudioContext(this, destination, output2, isOffline);
             if (isNewConnectionToAudioParam) {
               const cycles = detectCycles([this], destination);
               visitEachAudioNodeOnce(cycles, createIncrementCycleCounter(isOffline));
             }
           }
-          disconnect(destinationOrOutput, output, input) {
+          disconnect(destinationOrOutput, output2, input) {
             let destinations;
             const nativeContext = getNativeContext2(this._context);
             const isOffline = isNativeOfflineAudioContext2(nativeContext);
@@ -2575,13 +2575,13 @@
               }
               destinations = deleteConnectionAtOutput(this, isOffline, destinationOrOutput);
             } else {
-              if (output !== void 0 && (output < 0 || output >= this.numberOfOutputs)) {
+              if (output2 !== void 0 && (output2 < 0 || output2 >= this.numberOfOutputs)) {
                 throw createIndexSizeError2();
               }
               if (isAudioNode(destinationOrOutput) && input !== void 0 && (input < 0 || input >= destinationOrOutput.numberOfInputs)) {
                 throw createIndexSizeError2();
               }
-              destinations = deleteConnectionToDestination(this, isOffline, destinationOrOutput, output, input);
+              destinations = deleteConnectionToDestination(this, isOffline, destinationOrOutput, output2, input);
               if (destinations.length === 0) {
                 throw createInvalidAccessError2();
               }
@@ -3586,8 +3586,8 @@
     "node_modules/standardized-audio-context/build/es2019/factories/connect-multiple-outputs.js"() {
       init_native_audio_node();
       createConnectMultipleOutputs = (createIndexSizeError2) => {
-        return (outputAudioNodes, destination, output = 0, input = 0) => {
-          const outputAudioNode = outputAudioNodes[output];
+        return (outputAudioNodes, destination, output2 = 0, input = 0) => {
+          const outputAudioNode = outputAudioNodes[output2];
           if (outputAudioNode === void 0) {
             throw createIndexSizeError2();
           }
@@ -4002,13 +4002,13 @@
             if (!isOffline && isActiveAudioNode2(audioNode)) {
               const nativeSourceAudioNode = getNativeAudioNode2(audioNode);
               const { outputs } = getAudioNodeConnections2(audioNode);
-              for (const output of outputs) {
-                if (isAudioNodeOutputConnection(output)) {
-                  const nativeDestinationAudioNode = getNativeAudioNode2(output[0]);
-                  connectNativeAudioNodeToNativeAudioNode2(nativeSourceAudioNode, nativeDestinationAudioNode, output[1], output[2]);
+              for (const output2 of outputs) {
+                if (isAudioNodeOutputConnection(output2)) {
+                  const nativeDestinationAudioNode = getNativeAudioNode2(output2[0]);
+                  connectNativeAudioNodeToNativeAudioNode2(nativeSourceAudioNode, nativeDestinationAudioNode, output2[1], output2[2]);
                 } else {
-                  const nativeDestinationAudioParam = getNativeAudioParam2(output[0]);
-                  nativeSourceAudioNode.connect(nativeDestinationAudioParam, output[1]);
+                  const nativeDestinationAudioParam = getNativeAudioParam2(output2[0]);
+                  nativeSourceAudioNode.connect(nativeDestinationAudioParam, output2[1]);
                 }
               }
             }
@@ -4100,8 +4100,8 @@
   var init_delete_active_input_connection_to_audio_node = __esm({
     "node_modules/standardized-audio-context/build/es2019/factories/delete-active-input-connection-to-audio-node.js"() {
       createDeleteActiveInputConnectionToAudioNode = (pickElementFromSet2) => {
-        return (activeInputs, source, output, input) => {
-          return pickElementFromSet2(activeInputs[input], (activeInputConnection) => activeInputConnection[0] === source && activeInputConnection[1] === output);
+        return (activeInputs, source, output2, input) => {
+          return pickElementFromSet2(activeInputs[input], (activeInputConnection) => activeInputConnection[0] === source && activeInputConnection[1] === output2);
         };
       };
     }
@@ -4159,15 +4159,15 @@
   var init_disconnect_multiple_outputs = __esm({
     "node_modules/standardized-audio-context/build/es2019/factories/disconnect-multiple-outputs.js"() {
       init_native_audio_node();
-      getOutputAudioNodeAtIndex = (createIndexSizeError2, outputAudioNodes, output) => {
-        const outputAudioNode = outputAudioNodes[output];
+      getOutputAudioNodeAtIndex = (createIndexSizeError2, outputAudioNodes, output2) => {
+        const outputAudioNode = outputAudioNodes[output2];
         if (outputAudioNode === void 0) {
           throw createIndexSizeError2();
         }
         return outputAudioNode;
       };
       createDisconnectMultipleOutputs = (createIndexSizeError2) => {
-        return (outputAudioNodes, destinationOrOutput = void 0, output = void 0, input = 0) => {
+        return (outputAudioNodes, destinationOrOutput = void 0, output2 = void 0, input = 0) => {
           if (destinationOrOutput === void 0) {
             return outputAudioNodes.forEach((outputAudioNode) => outputAudioNode.disconnect());
           }
@@ -4175,18 +4175,18 @@
             return getOutputAudioNodeAtIndex(createIndexSizeError2, outputAudioNodes, destinationOrOutput).disconnect();
           }
           if (isNativeAudioNode(destinationOrOutput)) {
-            if (output === void 0) {
+            if (output2 === void 0) {
               return outputAudioNodes.forEach((outputAudioNode) => outputAudioNode.disconnect(destinationOrOutput));
             }
             if (input === void 0) {
-              return getOutputAudioNodeAtIndex(createIndexSizeError2, outputAudioNodes, output).disconnect(destinationOrOutput, 0);
+              return getOutputAudioNodeAtIndex(createIndexSizeError2, outputAudioNodes, output2).disconnect(destinationOrOutput, 0);
             }
-            return getOutputAudioNodeAtIndex(createIndexSizeError2, outputAudioNodes, output).disconnect(destinationOrOutput, 0, input);
+            return getOutputAudioNodeAtIndex(createIndexSizeError2, outputAudioNodes, output2).disconnect(destinationOrOutput, 0, input);
           }
-          if (output === void 0) {
+          if (output2 === void 0) {
             return outputAudioNodes.forEach((outputAudioNode) => outputAudioNode.disconnect(destinationOrOutput));
           }
-          return getOutputAudioNodeAtIndex(createIndexSizeError2, outputAudioNodes, output).disconnect(destinationOrOutput, 0);
+          return getOutputAudioNodeAtIndex(createIndexSizeError2, outputAudioNodes, output2).disconnect(destinationOrOutput, 0);
         };
       };
     }
@@ -4737,7 +4737,7 @@
   var filterBuffer;
   var init_filter_buffer = __esm({
     "node_modules/standardized-audio-context/build/es2019/helpers/filter-buffer.js"() {
-      filterBuffer = (feedback, feedbackLength, feedforward, feedforwardLength, minLength, xBuffer, yBuffer, bufferIndex, bufferLength, input, output) => {
+      filterBuffer = (feedback, feedbackLength, feedforward, feedforwardLength, minLength, xBuffer, yBuffer, bufferIndex, bufferLength, input, output2) => {
         const inputLength = input.length;
         let i = bufferIndex;
         for (let j = 0; j < inputLength; j += 1) {
@@ -4756,7 +4756,7 @@
           xBuffer[i] = input[j];
           yBuffer[i] = y;
           i = i + 1 & bufferLength - 1;
-          output[j] = y;
+          output2[j] = y;
         }
         return i;
       };
@@ -4790,10 +4790,10 @@
         const numberOfChannels = renderedBuffer.numberOfChannels;
         for (let i = 0; i < numberOfChannels; i += 1) {
           const input = renderedBuffer.getChannelData(i);
-          const output = filteredBuffer.getChannelData(i);
+          const output2 = filteredBuffer.getChannelData(i);
           xBuffer.fill(0);
           yBuffer.fill(0);
-          filterBuffer(convertedFeedback, feedbackLength, convertedFeedforward, feedforwardLength, minLength, xBuffer, yBuffer, 0, bufferLength, input, output);
+          filterBuffer(convertedFeedback, feedbackLength, convertedFeedforward, feedforwardLength, minLength, xBuffer, yBuffer, 0, bufferLength, input, output2);
         }
         return filteredBuffer;
       };
@@ -4873,13 +4873,13 @@
               if (!isOffline && isActiveAudioNode2(audioNode)) {
                 const nativeSourceAudioNode = getNativeAudioNode2(audioNode);
                 const { outputs } = getAudioNodeConnections2(audioNode);
-                for (const output of outputs) {
-                  if (isAudioNodeOutputConnection(output)) {
-                    const nativeDestinationAudioNode = getNativeAudioNode2(output[0]);
-                    disconnectNativeAudioNodeFromNativeAudioNode2(nativeSourceAudioNode, nativeDestinationAudioNode, output[1], output[2]);
+                for (const output2 of outputs) {
+                  if (isAudioNodeOutputConnection(output2)) {
+                    const nativeDestinationAudioNode = getNativeAudioNode2(output2[0]);
+                    disconnectNativeAudioNodeFromNativeAudioNode2(nativeSourceAudioNode, nativeDestinationAudioNode, output2[1], output2[2]);
                   } else {
-                    const nativeDestinationAudioParam = getNativeAudioParam2(output[0]);
-                    nativeSourceAudioNode.disconnect(nativeDestinationAudioParam, output[1]);
+                    const nativeDestinationAudioParam = getNativeAudioParam2(output2[0]);
+                    nativeSourceAudioNode.disconnect(nativeDestinationAudioParam, output2[1]);
                   }
                 }
               }
@@ -5369,18 +5369,18 @@
         return (nativeAudioNode, whenConnected, whenDisconnected) => {
           const connections = /* @__PURE__ */ new Set();
           nativeAudioNode.connect = /* @__PURE__ */ ((connect2) => {
-            return (destination, output = 0, input = 0) => {
+            return (destination, output2 = 0, input = 0) => {
               const wasDisconnected = connections.size === 0;
               if (isNativeAudioNode3(destination)) {
-                connect2.call(nativeAudioNode, destination, output, input);
-                insertElementInSet2(connections, [destination, output, input], (connection) => connection[0] === destination && connection[1] === output && connection[2] === input, true);
+                connect2.call(nativeAudioNode, destination, output2, input);
+                insertElementInSet2(connections, [destination, output2, input], (connection) => connection[0] === destination && connection[1] === output2 && connection[2] === input, true);
                 if (wasDisconnected) {
                   whenConnected();
                 }
                 return destination;
               }
-              connect2.call(nativeAudioNode, destination, output);
-              insertElementInSet2(connections, [destination, output], (connection) => connection[0] === destination && connection[1] === output, true);
+              connect2.call(nativeAudioNode, destination, output2);
+              insertElementInSet2(connections, [destination, output2], (connection) => connection[0] === destination && connection[1] === output2, true);
               if (wasDisconnected) {
                 whenConnected();
               }
@@ -5388,7 +5388,7 @@
             };
           })(nativeAudioNode.connect);
           nativeAudioNode.disconnect = /* @__PURE__ */ ((disconnect2) => {
-            return (destinationOrOutput, output, input) => {
+            return (destinationOrOutput, output2, input) => {
               const wasConnected = connections.size > 0;
               if (destinationOrOutput === void 0) {
                 disconnect2.apply(nativeAudioNode);
@@ -5402,12 +5402,12 @@
                 }
               } else {
                 if (isNativeAudioNode3(destinationOrOutput)) {
-                  disconnect2.call(nativeAudioNode, destinationOrOutput, output, input);
+                  disconnect2.call(nativeAudioNode, destinationOrOutput, output2, input);
                 } else {
-                  disconnect2.call(nativeAudioNode, destinationOrOutput, output);
+                  disconnect2.call(nativeAudioNode, destinationOrOutput, output2);
                 }
                 for (const connection of connections) {
-                  if (connection[0] === destinationOrOutput && (output === void 0 || connection[1] === output) && (input === void 0 || connection[2] === input)) {
+                  if (connection[0] === destinationOrOutput && (output2 === void 0 || connection[1] === output2) && (input === void 0 || connection[2] === input)) {
                     connections.delete(connection);
                   }
                 }
@@ -6698,8 +6698,8 @@
             const numberOfChannels = inputBuffer.numberOfChannels;
             for (let i = 0; i < numberOfChannels; i += 1) {
               const input = inputBuffer.getChannelData(i);
-              const output = outputBuffer.getChannelData(i);
-              bufferIndexes[i] = filterBuffer(convertedFeedback, feedbackLength, convertedFeedforward, feedforwardLength, minLength, xBuffers[i], yBuffers[i], bufferIndexes[i], bufferLength, input, output);
+              const output2 = outputBuffer.getChannelData(i);
+              bufferIndexes[i] = filterBuffer(convertedFeedback, feedbackLength, convertedFeedforward, feedforwardLength, minLength, xBuffers[i], yBuffers[i], bufferIndexes[i], bufferLength, input, output2);
             }
           };
           const nyquist = nativeContext.sampleRate / 2;
@@ -8279,12 +8279,12 @@
       createRenderInputsOfAudioNode = (getAudioNodeConnections2, getAudioNodeRenderer2, isPartOfACycle2) => {
         return (audioNode, nativeOfflineAudioContext, nativeAudioNode) => __async(void 0, null, function* () {
           const audioNodeConnections = getAudioNodeConnections2(audioNode);
-          yield Promise.all(audioNodeConnections.activeInputs.map((connections, input) => Array.from(connections).map((_0) => __async(void 0, [_0], function* ([source, output]) {
+          yield Promise.all(audioNodeConnections.activeInputs.map((connections, input) => Array.from(connections).map((_0) => __async(void 0, [_0], function* ([source, output2]) {
             const audioNodeRenderer = getAudioNodeRenderer2(source);
             const renderedNativeAudioNode = yield audioNodeRenderer.render(source, nativeOfflineAudioContext);
             const destination = audioNode.context.destination;
             if (!isPartOfACycle2(source) && (audioNode !== destination || !isPartOfACycle2(audioNode))) {
-              renderedNativeAudioNode.connect(nativeAudioNode, output, input);
+              renderedNativeAudioNode.connect(nativeAudioNode, output2, input);
             }
           }))).reduce((allRenderingPromises, renderingPromises) => [...allRenderingPromises, ...renderingPromises], []));
         });
@@ -8299,11 +8299,11 @@
       createRenderInputsOfAudioParam = (getAudioNodeRenderer2, getAudioParamConnections2, isPartOfACycle2) => {
         return (audioParam, nativeOfflineAudioContext, nativeAudioParam) => __async(void 0, null, function* () {
           const audioParamConnections = getAudioParamConnections2(audioParam);
-          yield Promise.all(Array.from(audioParamConnections.activeInputs).map((_0) => __async(void 0, [_0], function* ([source, output]) {
+          yield Promise.all(Array.from(audioParamConnections.activeInputs).map((_0) => __async(void 0, [_0], function* ([source, output2]) {
             const audioNodeRenderer = getAudioNodeRenderer2(source);
             const renderedNativeAudioNode = yield audioNodeRenderer.render(source, nativeOfflineAudioContext);
             if (!isPartOfACycle2(source)) {
-              renderedNativeAudioNode.connect(nativeAudioParam, output);
+              renderedNativeAudioNode.connect(nativeAudioParam, output2);
             }
           })));
         });
@@ -22123,10 +22123,31 @@
   });
 
   // node_modules/tone/build/esm/signal/GainToAudio.js
+  var GainToAudio;
   var init_GainToAudio = __esm({
     "node_modules/tone/build/esm/signal/GainToAudio.js"() {
       init_SignalOperator();
       init_WaveShaper();
+      GainToAudio = class extends SignalOperator {
+        constructor() {
+          super(...arguments);
+          this.name = "GainToAudio";
+          this._norm = new WaveShaper({
+            context: this.context,
+            mapping: (x) => Math.abs(x) * 2 - 1
+          });
+          this.input = this._norm;
+          this.output = this._norm;
+        }
+        /**
+         * clean up
+         */
+        dispose() {
+          super.dispose();
+          this._norm.dispose();
+          return this;
+        }
+      };
     }
   });
 
@@ -23147,6 +23168,9 @@
     );
     workletContext.add(processor);
   }
+  function getWorkletGlobalScope() {
+    return Array.from(workletContext).join("\n");
+  }
   var workletContext;
   var init_WorkletGlobalScope = __esm({
     "node_modules/tone/build/esm/core/worklet/WorkletGlobalScope.js"() {
@@ -23155,11 +23179,40 @@
   });
 
   // node_modules/tone/build/esm/core/worklet/ToneAudioWorklet.js
+  var ToneAudioWorklet;
   var init_ToneAudioWorklet = __esm({
     "node_modules/tone/build/esm/core/worklet/ToneAudioWorklet.js"() {
       init_ToneAudioNode();
       init_Interface();
       init_WorkletGlobalScope();
+      ToneAudioWorklet = class extends ToneAudioNode {
+        constructor(options) {
+          super(options);
+          this.name = "ToneAudioWorklet";
+          this.workletOptions = {};
+          this.onprocessorerror = noOp;
+          const blobUrl = URL.createObjectURL(new Blob([getWorkletGlobalScope()], { type: "text/javascript" }));
+          const name = this._audioWorkletName();
+          this._dummyGain = this.context.createGain();
+          this._dummyParam = this._dummyGain.gain;
+          this.context.addAudioWorkletModule(blobUrl).then(() => {
+            if (!this.disposed) {
+              this._worklet = this.context.createAudioWorkletNode(name, this.workletOptions);
+              this._worklet.onprocessorerror = this.onprocessorerror.bind(this);
+              this.onReady(this._worklet);
+            }
+          });
+        }
+        dispose() {
+          super.dispose();
+          this._dummyGain.disconnect();
+          if (this._worklet) {
+            this._worklet.port.postMessage("dispose");
+            this._worklet.disconnect();
+          }
+          return this;
+        }
+      };
     }
   });
 
@@ -24009,6 +24062,7 @@
   });
 
   // node_modules/tone/build/esm/component/channel/CrossFade.js
+  var CrossFade;
   var init_CrossFade = __esm({
     "node_modules/tone/build/esm/component/channel/CrossFade.js"() {
       init_Gain();
@@ -24017,16 +24071,106 @@
       init_Interface();
       init_GainToAudio();
       init_Signal();
+      CrossFade = class _CrossFade extends ToneAudioNode {
+        constructor() {
+          const options = optionsFromArguments(_CrossFade.getDefaults(), arguments, ["fade"]);
+          super(options);
+          this.name = "CrossFade";
+          this._panner = this.context.createStereoPanner();
+          this._split = this.context.createChannelSplitter(2);
+          this._g2a = new GainToAudio({ context: this.context });
+          this.a = new Gain({
+            context: this.context,
+            gain: 0
+          });
+          this.b = new Gain({
+            context: this.context,
+            gain: 0
+          });
+          this.output = new Gain({ context: this.context });
+          this._internalChannels = [this.a, this.b];
+          this.fade = new Signal({
+            context: this.context,
+            units: "normalRange",
+            value: options.fade
+          });
+          readOnly(this, "fade");
+          this.context.getConstant(1).connect(this._panner);
+          this._panner.connect(this._split);
+          this._panner.channelCount = 1;
+          this._panner.channelCountMode = "explicit";
+          connect(this._split, this.a.gain, 0);
+          connect(this._split, this.b.gain, 1);
+          this.fade.chain(this._g2a, this._panner.pan);
+          this.a.connect(this.output);
+          this.b.connect(this.output);
+        }
+        static getDefaults() {
+          return Object.assign(ToneAudioNode.getDefaults(), {
+            fade: 0.5
+          });
+        }
+        dispose() {
+          super.dispose();
+          this.a.dispose();
+          this.b.dispose();
+          this.output.dispose();
+          this.fade.dispose();
+          this._g2a.dispose();
+          this._panner.disconnect();
+          this._split.disconnect();
+          return this;
+        }
+      };
     }
   });
 
   // node_modules/tone/build/esm/effect/Effect.js
+  var Effect;
   var init_Effect = __esm({
     "node_modules/tone/build/esm/effect/Effect.js"() {
       init_CrossFade();
       init_Gain();
       init_ToneAudioNode();
       init_Interface();
+      Effect = class extends ToneAudioNode {
+        constructor(options) {
+          super(options);
+          this.name = "Effect";
+          this._dryWet = new CrossFade({ context: this.context });
+          this.wet = this._dryWet.fade;
+          this.effectSend = new Gain({ context: this.context });
+          this.effectReturn = new Gain({ context: this.context });
+          this.input = new Gain({ context: this.context });
+          this.output = this._dryWet;
+          this.input.fan(this._dryWet.a, this.effectSend);
+          this.effectReturn.connect(this._dryWet.b);
+          this.wet.setValueAtTime(options.wet, 0);
+          this._internalChannels = [this.effectReturn, this.effectSend];
+          readOnly(this, "wet");
+        }
+        static getDefaults() {
+          return Object.assign(ToneAudioNode.getDefaults(), {
+            wet: 1
+          });
+        }
+        /**
+         * chains the effect in between the effectSend and effectReturn
+         */
+        connectEffect(effect) {
+          this._internalChannels.push(effect);
+          this.effectSend.chain(effect, this.effectReturn);
+          return this;
+        }
+        dispose() {
+          super.dispose();
+          this._dryWet.dispose();
+          this.effectSend.dispose();
+          this.effectReturn.dispose();
+          this.wet.dispose();
+          return this;
+        }
+      };
     }
   });
 
@@ -24159,6 +24303,7 @@
   });
 
   // node_modules/tone/build/esm/effect/BitCrusher.js
+  var BitCrusher, BitCrusherWorklet;
   var init_BitCrusher = __esm({
     "node_modules/tone/build/esm/effect/BitCrusher.js"() {
       init_ToneAudioWorklet();
@@ -24168,16 +24313,151 @@
       init_ToneAudioNode();
       init_Param();
       init_BitCrusher_worklet();
+      BitCrusher = class _BitCrusher extends Effect {
+        constructor() {
+          const options = optionsFromArguments(_BitCrusher.getDefaults(), arguments, ["bits"]);
+          super(options);
+          this.name = "BitCrusher";
+          this._bitCrusherWorklet = new BitCrusherWorklet({
+            context: this.context,
+            bits: options.bits
+          });
+          this.connectEffect(this._bitCrusherWorklet);
+          this.bits = this._bitCrusherWorklet.bits;
+        }
+        static getDefaults() {
+          return Object.assign(Effect.getDefaults(), {
+            bits: 4
+          });
+        }
+        dispose() {
+          super.dispose();
+          this._bitCrusherWorklet.dispose();
+          return this;
+        }
+      };
+      BitCrusherWorklet = class _BitCrusherWorklet extends ToneAudioWorklet {
+        constructor() {
+          const options = optionsFromArguments(_BitCrusherWorklet.getDefaults(), arguments);
+          super(options);
+          this.name = "BitCrusherWorklet";
+          this.input = new Gain({ context: this.context });
+          this.output = new Gain({ context: this.context });
+          this.bits = new Param({
+            context: this.context,
+            value: options.bits,
+            units: "positive",
+            minValue: 1,
+            maxValue: 16,
+            param: this._dummyParam,
+            swappable: true
+          });
+        }
+        static getDefaults() {
+          return Object.assign(ToneAudioWorklet.getDefaults(), {
+            bits: 12
+          });
+        }
+        _audioWorkletName() {
+          return workletName2;
+        }
+        onReady(node) {
+          connectSeries(this.input, node, this.output);
+          const bits = node.parameters.get("bits");
+          this.bits.setParam(bits);
+        }
+        dispose() {
+          super.dispose();
+          this.input.dispose();
+          this.output.dispose();
+          this.bits.dispose();
+          return this;
+        }
+      };
     }
   });
 
   // node_modules/tone/build/esm/effect/Chebyshev.js
+  var Chebyshev;
   var init_Chebyshev = __esm({
     "node_modules/tone/build/esm/effect/Chebyshev.js"() {
       init_Effect();
       init_Defaults();
       init_WaveShaper();
       init_Debug();
+      Chebyshev = class _Chebyshev extends Effect {
+        constructor() {
+          const options = optionsFromArguments(_Chebyshev.getDefaults(), arguments, ["order"]);
+          super(options);
+          this.name = "Chebyshev";
+          this._shaper = new WaveShaper({
+            context: this.context,
+            length: 4096
+          });
+          this._order = options.order;
+          this.connectEffect(this._shaper);
+          this.order = options.order;
+          this.oversample = options.oversample;
+        }
+        static getDefaults() {
+          return Object.assign(Effect.getDefaults(), {
+            order: 1,
+            oversample: "none"
+          });
+        }
+        /**
+         * get the coefficient for that degree
+         * @param  x the x value
+         * @param  degree
+         * @param  memo memoize the computed value. this speeds up computation greatly.
+         */
+        _getCoefficient(x, degree, memo) {
+          if (memo.has(degree)) {
+            return memo.get(degree);
+          } else if (degree === 0) {
+            memo.set(degree, 0);
+          } else if (degree === 1) {
+            memo.set(degree, x);
+          } else {
+            memo.set(degree, 2 * x * this._getCoefficient(x, degree - 1, memo) - this._getCoefficient(x, degree - 2, memo));
+          }
+          return memo.get(degree);
+        }
+        /**
+         * The order of the Chebyshev polynomial which creates the equation which is applied to the incoming
+         * signal through a Tone.WaveShaper. Must be an integer. The equations are in the form:
+         * ```
+         * order 2: 2x^2 + 1
+         * order 3: 4x^3 + 3x
+         * ```
+         * @min 1
+         * @max 100
+         */
+        get order() {
+          return this._order;
+        }
+        set order(order) {
+          assert(Number.isInteger(order), "'order' must be an integer");
+          this._order = order;
+          this._shaper.setMap((x) => {
+            return this._getCoefficient(x, order, /* @__PURE__ */ new Map());
+          });
+        }
+        /**
+         * The oversampling of the effect. Can either be "none", "2x" or "4x".
+         */
+        get oversample() {
+          return this._shaper.oversample;
+        }
+        set oversample(oversampling) {
+          this._shaper.oversample = oversampling;
+        }
+        dispose() {
+          super.dispose();
+          this._shaper.dispose();
+          return this;
+        }
+      };
     }
   });
 
@@ -24233,11 +24513,65 @@
   });
 
   // node_modules/tone/build/esm/effect/Distortion.js
+  var Distortion;
   var init_Distortion = __esm({
     "node_modules/tone/build/esm/effect/Distortion.js"() {
       init_Defaults();
       init_WaveShaper();
       init_Effect();
+      Distortion = class _Distortion extends Effect {
+        constructor() {
+          const options = optionsFromArguments(_Distortion.getDefaults(), arguments, ["distortion"]);
+          super(options);
+          this.name = "Distortion";
+          this._shaper = new WaveShaper({
+            context: this.context,
+            length: 4096
+          });
+          this._distortion = options.distortion;
+          this.connectEffect(this._shaper);
+          this.distortion = options.distortion;
+          this.oversample = options.oversample;
+        }
+        static getDefaults() {
+          return Object.assign(Effect.getDefaults(), {
+            distortion: 0.4,
+            oversample: "none"
+          });
+        }
+        /**
+         * The amount of distortion. Nominal range is between 0 and 1.
+         */
+        get distortion() {
+          return this._distortion;
+        }
+        set distortion(amount) {
+          this._distortion = amount;
+          const k = amount * 100;
+          const deg = Math.PI / 180;
+          this._shaper.setMap((x) => {
+            if (Math.abs(x) < 1e-3) {
+              return 0;
+            } else {
+              return (3 + k) * x * 20 * deg / (Math.PI + k * Math.abs(x));
+            }
+          });
+        }
+        /**
+         * The oversampling of the effect. Can either be "none", "2x" or "4x".
+         */
+        get oversample() {
+          return this._shaper.oversample;
+        }
+        set oversample(oversampling) {
+          this._shaper.oversample = oversampling;
+        }
+        dispose() {
+          super.dispose();
+          this._shaper.dispose();
+          return this;
+        }
+      };
     }
   });
 
@@ -25322,7 +25656,7 @@
   // node_modules/midi-file/lib/midi-writer.js
   var require_midi_writer = __commonJS({
     "node_modules/midi-file/lib/midi-writer.js"(exports, module) {
-      function writeMidi(data, opts) {
+      function writeMidi2(data, opts) {
         if (typeof data !== "object")
           throw "Invalid MIDI data";
         opts = opts || {};
@@ -25603,7 +25937,7 @@
         this.writeUInt32(data.length);
         this.writeBytes(data);
       };
-      module.exports = writeMidi;
+      module.exports = writeMidi2;
     }
   });
 
@@ -25697,7 +26031,7 @@
       var Header = (
         /** @class */
         function() {
-          function Header2(midiData) {
+          function Header2(midiData2) {
             var _this = this;
             this.tempos = [];
             this.timeSignatures = [];
@@ -25705,9 +26039,9 @@
             this.meta = [];
             this.name = "";
             privatePPQMap.set(this, 480);
-            if (midiData) {
-              privatePPQMap.set(this, midiData.header.ticksPerBeat);
-              midiData.tracks.forEach(function(track) {
+            if (midiData2) {
+              privatePPQMap.set(this, midiData2.header.ticksPerBeat);
+              midiData2.tracks.forEach(function(track) {
                 track.forEach(function(event) {
                   if (event.meta) {
                     if (event.type === "timeSignature") {
@@ -25734,7 +26068,7 @@
                 });
               });
               var firstTrackCurrentTicks_1 = 0;
-              midiData.tracks[0].forEach(function(event) {
+              midiData2.tracks[0].forEach(function(event) {
                 firstTrackCurrentTicks_1 += event.deltaTime;
                 if (event.meta) {
                   if (event.type === "trackName") {
@@ -26856,7 +27190,7 @@
         };
       }
       function encode(midi) {
-        var midiData = {
+        var midiData2 = {
           header: {
             format: 1,
             numTracks: midi.tracks.length + 1,
@@ -26890,7 +27224,7 @@
             ], encodeNotes(track), true), encodeControlChanges(track), true), encodePitchBends(track), true);
           }), true)
         };
-        midiData.tracks = midiData.tracks.map(function(track) {
+        midiData2.tracks = midiData2.tracks.map(function(track) {
           track = track.sort(function(a, b) {
             return a.absoluteTime - b.absoluteTime;
           });
@@ -26907,7 +27241,7 @@
           });
           return track;
         });
-        return new Uint8Array((0, midi_file_1.writeMidi)(midiData));
+        return new Uint8Array((0, midi_file_1.writeMidi)(midiData2));
       }
       exports.encode = encode;
     }
@@ -27024,26 +27358,26 @@
         function() {
           function Midi2(midiArray) {
             var _this = this;
-            var midiData = null;
+            var midiData2 = null;
             if (midiArray) {
               var midiArrayLike = midiArray instanceof ArrayBuffer ? new Uint8Array(midiArray) : midiArray;
-              midiData = (0, midi_file_1.parseMidi)(midiArrayLike);
-              midiData.tracks.forEach(function(track) {
+              midiData2 = (0, midi_file_1.parseMidi)(midiArrayLike);
+              midiData2.tracks.forEach(function(track) {
                 var currentTicks = 0;
                 track.forEach(function(event) {
                   currentTicks += event.deltaTime;
                   event.absoluteTime = currentTicks;
                 });
               });
-              midiData.tracks = splitTracks(midiData.tracks);
+              midiData2.tracks = splitTracks(midiData2.tracks);
             }
-            this.header = new Header_1.Header(midiData);
+            this.header = new Header_1.Header(midiData2);
             this.tracks = [];
             if (midiArray) {
-              this.tracks = midiData.tracks.map(function(trackData) {
+              this.tracks = midiData2.tracks.map(function(trackData) {
                 return new Track_1.Track(trackData, _this.header);
               });
-              if (midiData.header.format === 1 && this.tracks[0].duration === 0) {
+              if (midiData2.header.format === 1 && this.tracks[0].duration === 0) {
                 this.tracks.shift();
               }
             }
@@ -27184,12 +27518,59 @@
     }
   });
 
+  // src/createMidi.ts
+  var import_midi_file, midiData, output;
+  var init_createMidi = __esm({
+    "src/createMidi.ts"() {
+      "use strict";
+      import_midi_file = __toESM(require_midi_file());
+      midiData = {
+        header: {
+          format: 1,
+          // Explicitly type the format as 1
+          numTracks: 1,
+          ticksPerBeat: 480
+        },
+        tracks: [
+          [
+            { deltaTime: 0, meta: true, type: "trackName", text: "Lighthearted Jingle" },
+            { deltaTime: 0, meta: true, type: "setTempo", microsecondsPerBeat: 5e5 },
+            { deltaTime: 0, channel: 0, type: "programChange", programNumber: 0 },
+            { deltaTime: 0, channel: 0, type: "noteOn", noteNumber: 72, velocity: 64 },
+            { deltaTime: 480, channel: 0, type: "noteOff", noteNumber: 72, velocity: 64 },
+            { deltaTime: 0, channel: 0, type: "noteOn", noteNumber: 76, velocity: 64 },
+            { deltaTime: 480, channel: 0, type: "noteOff", noteNumber: 76, velocity: 64 },
+            { deltaTime: 0, channel: 0, type: "noteOn", noteNumber: 79, velocity: 64 },
+            { deltaTime: 480, channel: 0, type: "noteOff", noteNumber: 79, velocity: 64 },
+            { deltaTime: 0, channel: 0, type: "noteOn", noteNumber: 76, velocity: 64 },
+            { deltaTime: 480, channel: 0, type: "noteOff", noteNumber: 76, velocity: 64 },
+            { deltaTime: 0, channel: 0, type: "noteOn", noteNumber: 72, velocity: 64 },
+            { deltaTime: 480, channel: 0, type: "noteOff", noteNumber: 72, velocity: 64 },
+            { deltaTime: 0, channel: 0, type: "noteOn", noteNumber: 67, velocity: 64 },
+            { deltaTime: 480, channel: 0, type: "noteOff", noteNumber: 67, velocity: 64 },
+            { deltaTime: 0, channel: 0, type: "noteOn", noteNumber: 64, velocity: 64 },
+            { deltaTime: 480, channel: 0, type: "noteOff", noteNumber: 64, velocity: 64 },
+            { deltaTime: 0, channel: 0, type: "noteOn", noteNumber: 60, velocity: 64 },
+            { deltaTime: 960, channel: 0, type: "noteOff", noteNumber: 60, velocity: 64 },
+            { deltaTime: 0, meta: true, type: "endOfTrack" }
+          ]
+        ]
+      };
+      output = (0, import_midi_file.writeMidi)(midiData);
+      console.log("MIDI file has been created.");
+    }
+  });
+
   // src/index.ts
   var require_src = __commonJS({
     "src/index.ts"(exports) {
       init_esm();
       var import_midi = __toESM(require_Midi());
-      var synth = new PolySynth(Synth).toDestination();
+      init_createMidi();
+      var crusher = new BitCrusher(8).toDestination();
+      var chebyshev = new Chebyshev(13).connect(crusher);
+      var distortion = new Distortion(0.1).connect(chebyshev);
+      var synth = new PolySynth(Synth).connect(distortion);
       function loadAndPlayMidi(url) {
         return __async(this, null, function* () {
           const response = yield fetch(url);
@@ -27203,19 +27584,86 @@
         });
       }
       document.addEventListener("DOMContentLoaded", () => {
+        const fileSelector = document.createElement("select");
+        const pref = document.createElement("option");
+        const comfortably_numb = document.createElement("option");
+        const great_gig = document.createElement("option");
+        fileSelector.appendChild(pref);
+        fileSelector.appendChild(comfortably_numb);
+        fileSelector.appendChild(great_gig);
+        pref.value = "./assets/GreatGigInTheSky.mid";
+        pref.innerHTML = "disabled selected";
+        pref.textContent = "chose a piece";
+        comfortably_numb.value = "./assets/ComfortablyNumb.mid";
+        comfortably_numb.textContent = "comfortably numb";
+        great_gig.value = "./assets/GreatGigInTheSky.mid";
+        great_gig.textContent = "Great Gig in the sky";
+        document.body.appendChild(fileSelector);
         const startButton = document.createElement("button");
-        startButton.innerText = "Start Audio";
+        startButton.innerText = "Play selected Audio";
         document.body.appendChild(startButton);
         startButton.addEventListener("click", () => __async(exports, null, function* () {
           yield start();
           console.log("Audio Context started");
-          const midiUrl = "./assets/comfortably_numb.mid";
+          const midiUrl = fileSelector.value;
           loadAndPlayMidi(midiUrl).then(() => {
             console.log("MIDI file loaded and playing");
           }).catch((error) => {
             console.error("Error loading MIDI file", error);
           });
         }));
+        const createButton = document.createElement("button");
+        createButton.innerText = "play random Audio";
+        document.body.appendChild(createButton);
+        createButton.addEventListener(`click`, () => __async(exports, null, function* () {
+          yield start();
+          console.log(`getting midi file created by chatGPT by the prompt "lighthearted jingle in the style of bobby mcferrin"`);
+          const midi = new import_midi.Midi(output);
+          midi.tracks.forEach((track) => {
+            track.notes.forEach((note) => {
+              synth.triggerAttackRelease(note.name, note.duration, note.time);
+            });
+          });
+        }));
+        const distortionLabel = document.createElement("label");
+        distortionLabel.textContent = "distortion:";
+        document.body.appendChild(distortionLabel);
+        const distortionSlider = document.createElement("input");
+        distortionSlider.type = "range";
+        distortionSlider.min = "0";
+        distortionSlider.max = "1";
+        distortionSlider.step = ".05";
+        document.body.appendChild(distortionSlider);
+        distortionSlider.addEventListener("change", () => {
+          distortion.distortion = parseInt(distortionSlider.value, 10);
+        });
+        const chebyshevLabel = document.createElement("label");
+        chebyshevLabel.textContent = "chebyshev: ";
+        document.body.appendChild(chebyshevLabel);
+        const chebyshevSlider = document.createElement("input");
+        chebyshevSlider.type = "range";
+        chebyshevSlider.min = "0";
+        chebyshevSlider.max = "100";
+        chebyshevSlider.step = "1";
+        document.body.appendChild(chebyshevSlider);
+        chebyshevSlider.addEventListener("change", () => {
+          chebyshev.order = parseInt(chebyshevSlider.value, 10);
+        });
+        const bitDepthLabel = document.createElement("label");
+        bitDepthLabel.textContent = "Bit Depth:";
+        document.body.appendChild(bitDepthLabel);
+        const bitDepthSlider = document.createElement("input");
+        bitDepthSlider.type = "range";
+        bitDepthSlider.min = "1";
+        bitDepthSlider.max = "16";
+        bitDepthSlider.value = "8";
+        bitDepthSlider.step = "1";
+        document.body.appendChild(bitDepthSlider);
+        bitDepthSlider.addEventListener("change", () => {
+          crusher.set({
+            bits: parseInt(bitDepthSlider.value, 10)
+          });
+        });
       });
       console.log("Tone.js is ready!");
     }
