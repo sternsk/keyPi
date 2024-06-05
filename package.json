@@ -1,0 +1,21 @@
+{
+  "name": "keypi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "esbuild src/index.ts --bundle --outdir=dist --platform=browser --target=es6",
+    "watch": "esbuild src/index.ts --bundle --outdir=dist --platform=browser --target=es6 --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "esbuild": "^0.21.4",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "tone": "^15.0.4"
+  }
+}
