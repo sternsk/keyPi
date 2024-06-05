@@ -10,7 +10,7 @@ const keyNoteMap: { [key: string]: string } = {
     'f': 'F4',
     't': 'F#4',
     'g': 'G4',
-    'y': 'G#4',
+    'z': 'G#4',
     'h': 'A4',
     'u': 'A#4',
     'j': 'B4',
@@ -27,7 +27,7 @@ document.addEventListener('keydown', (e) => {
   
   document.addEventListener('keyup', () => {
     synth.triggerRelease();
-    console.log("1216")
+    console.log("1248")
   });
   
   console.log('Tone.js is ready!');
