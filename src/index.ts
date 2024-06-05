@@ -1,33 +1,37 @@
 import * as Tone from 'tone';
+import { Midi } from '@tonejs/midi';
 
-// Define a mapping from keyboard keys to musical notes
-const keyNoteMap: { [key: string]: string } = {
-    'a': 'C4',
-    'w': 'C#4',
-    's': 'D4',
-    'e': 'D#4',
-    'd': 'E4',
-    'f': 'F4',
-    't': 'F#4',
-    'g': 'G4',
-    'z': 'G#4',
-    'h': 'A4',
-    'u': 'A#4',
-    'j': 'B4',
-    'k': 'C5'
-};
+const synth = new Tone.PolySynth(Tone.Synth).toDestination();
 
-const synth = new Tone.Synth().toDestination();
+async function loadAndPlayMidi(url: string) {
+    const response = await fetch(url);
+    const arrayBuffer = await response.arrayBuffer();
+    const midi = new Midi(arrayBuffer);
 
-document.addEventListener('keydown', (e) => {
-    const note = keyNoteMap[e.key];
-    synth.triggerAttack(note);
-    console.log(e)
-  });
-  
-  document.addEventListener('keyup', () => {
-    synth.triggerRelease();
-    console.log("1248")
-  });
-  
-  console.log('Tone.js is ready!');
+    midi.tracks.forEach(track => {
+        track.notes.forEach(note => {
+            synth.triggerAttackRelease(note.name, note.duration, note.time);
+        });
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const startButton = document.createElement('button');
+    startButton.innerText = 'Start Audio';
+    document.body.appendChild(startButton);
+
+    startButton.addEventListener('click', async () => {
+        await Tone.start();
+        console.log('Audio Context started');
+
+        // Example MIDI file URL, replace with your own file URL
+        const midiUrl = './assets/comfortably_numb.mid';
+        loadAndPlayMidi(midiUrl).then(() => {
+            console.log('MIDI file loaded and playing');
+        }).catch(error => {
+            console.error('Error loading MIDI file', error);
+        });
+    });
+});
+
+console.log('Tone.js is ready!');
